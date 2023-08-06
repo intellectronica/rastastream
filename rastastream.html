@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Chat</title>
+</head>
+<body>
+  <div id="chat"></div>
+  <form>
+    <input type="text" id="message">
+    <button type="submit">Send</button>
+  </form>
+  <script>
+    const chat = document.getElementById('chat');
+    const form = document.querySelector('form');
+    const message = document.getElementById('message');
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const p_you = document.createElement('p');
+        p_you.textContent = 'You: ' + message.value;
+        chat.appendChild(p_you);
+        const response = await fetch('http://localhost:8080/', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'text/plain'
+            },
+            body: message.value
+        });
+        const reader = response.body.getReader();
+        let received = 'Bot: ';
+        const p_bot = document.createElement('pre');
+        p_bot.textContent = '';
+        chat.appendChild(p_bot);
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            received += new TextDecoder().decode(value);
+            p_bot.textContent = received;
+        }
+        message.value = '';
+    });
+  </script>
+</body>
+</html>
