@@ -33,9 +33,9 @@ class Program
             else if (request.HttpMethod == "POST")
             {
                 Env.Load();
-                var OPENAI_API_KEY = Environment.GetEnvironmentVariable("OPENAI_API_KEY"); // "f6d55158307d4baa84251390a01e9f1c";
-                var OPENAI_ENDPOINT = Environment.GetEnvironmentVariable("OPENAI_ENDPOINT"); // "https://ebergerfta-use-openai.openai.azure.com/";
-                var DEPLOYMENT_NAME = Environment.GetEnvironmentVariable("DEPLOYMENT_NAME"); // "gpt-35-turbo";
+                var OPENAI_API_KEY = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+                var OPENAI_ENDPOINT = Environment.GetEnvironmentVariable("OPENAI_ENDPOINT");
+                var DEPLOYMENT_NAME = Environment.GetEnvironmentVariable("DEPLOYMENT_NAME");
 
                 var openAIClient = new OpenAIClient(
                     new Uri(OPENAI_ENDPOINT),
